@@ -156,8 +156,12 @@ void GCubeWriter::WriteWeightData(FbxNode* pStartNode)
 	{
 		lChildNode = pStartNode->GetChild(i);
 		FbxMesh *pMesh = lChildNode->GetMesh();
+		
 		static bool flg = false;
 		if (pMesh && !flg) {
+			if (pMesh->GetDeformerCount(FbxDeformer::eSkin)==0) continue;
+			int ccount = ((FbxSkin*)pMesh->GetDeformer(0, FbxDeformer::eSkin))->GetClusterCount();
+			if (ccount==0) continue;
 			
 			printf("WriteWeightData (%s) ...\n", lChildNode->GetName());
 			
@@ -309,9 +313,12 @@ void GCubeWriter::parseVertex(FbxMesh* mesh)
 	printf("    @@ vertex parseing...\n");
 	
 	// Bind shape matrix
-    ((FbxSkin *)mesh->GetDeformer(0, FbxDeformer::eSkin))->GetCluster(0)->GetTransformMatrix(lTransformMatrix);
-	FbxString lStrMatrix = matrixToString(lTransformMatrix);
-	FBXSDK_printf("bsm:\n%s", lStrMatrix.Buffer());
+	lTransformMatrix.SetIdentity();
+    if (mesh->GetDeformerCount(FbxDeformer::eSkin)) {
+		((FbxSkin *)mesh->GetDeformer(0, FbxDeformer::eSkin))->GetCluster(0)->GetTransformMatrix(lTransformMatrix);
+		FbxString lStrMatrix = matrixToString(lTransformMatrix);
+		FBXSDK_printf("bsm:\n%s", lStrMatrix.Buffer());
+	}
 
 	// 頂点座標
 	int vertexCount = mesh->GetPolygonVertexCount();
@@ -400,6 +407,9 @@ void GCubeWriter::WriteSkeletonData(FbxNode* startNode, int index)
 		if( startNode->GetNodeAttribute() && startNode->GetNodeAttribute()->GetAttributeType() != FbxNodeAttribute::eSkeleton) {
 			return;
 		}
+		// ネコ用
+		if( startNode->GetNameOnly()=="Camera" ) return;
+		if( startNode->GetNameOnly()=="Light" ) return;
 		
 		// name
 		bos.writeShort(TYPE_NODE);

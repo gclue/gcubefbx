@@ -311,6 +311,19 @@ bool GCubeAniWriter::PreprocessScene(FbxScene& pScene)
 
     FbxString lActiveAnimStackName = pScene.ActiveAnimStackName;
     mAnimStack = pScene.FindMember<FbxAnimStack>(lActiveAnimStackName.Buffer());
+	if (!mAnimStack)
+    {
+		// the application has an invalid ActiveAnimStackName, we fallback by using the
+		// first animStack.
+		mAnimStack = pScene.GetMember<FbxAnimStack>();
+    }
+    if (mAnimStack == NULL)
+    {
+        mAnimStack = FbxAnimStack::Create(&pScene, "dummy");
+        mAnimLayer = FbxAnimLayer::Create(&pScene, "dummyL");
+        mAnimStack->AddMember(mAnimLayer);
+    }
+
     mAnimLayer = mAnimStack->GetMember<FbxAnimLayer>();
 	
 	return true;
