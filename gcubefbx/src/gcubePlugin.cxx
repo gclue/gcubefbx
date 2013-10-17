@@ -7,25 +7,34 @@
 //
 
 #include "GCubeWriter.h"
+#include "GCubeAniWriter.h"
 
 #define PLUGIN_NAME			"GCube"
 #define PLUGIN_VERSION		"1.0"
 #define PLUGIN_EXTENSION	"gcb"
+#define PLUGIN_EXTENSION_2	"gav"
 
 // Create your own writer.
 // And your writer will get a pPluginID and pSubID.
 FbxWriter* CreateGCubeWriter(FbxManager& pManager, FbxExporter& pExporter, int pSubID, int pPluginID)
 {
-	FbxWriter* lWriter = FbxNew< GCubeWriter >(pManager, pPluginID);
-	lWriter->SetIOSettings(pExporter.GetIOSettings());
-	return lWriter;
+	int id = pManager.GetIOPluginRegistry()->FindWriterIDByExtension(PLUGIN_EXTENSION);
+	if (id==pPluginID) {
+		FbxWriter* lWriter = FbxNew< GCubeWriter >(pManager, pPluginID);
+		lWriter->SetIOSettings(pExporter.GetIOSettings());
+		return lWriter;
+	} else {
+		FbxWriter* lWriter = FbxNew< GCubeAniWriter >(pManager, pPluginID);
+		lWriter->SetIOSettings(pExporter.GetIOSettings());
+		return lWriter;
+	}
 }
 
 // Get extension, description or version info about MyOwnWriter
 void* GetGCubeWriterInfo(FbxWriter::EInfoRequest pRequest, int pId)
 {
-    static const char* sExt[] = {PLUGIN_EXTENSION, 0};
-    static const char* sDesc[] = {PLUGIN_NAME"Writer", 0};
+    static const char* sExt[] = {PLUGIN_EXTENSION,PLUGIN_EXTENSION_2, 0};
+    static const char* sDesc[] = {PLUGIN_NAME"Writer",PLUGIN_NAME"Writer", 0};
 	
     switch( pRequest )
     {

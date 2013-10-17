@@ -27,7 +27,7 @@
 #define TYPE_COLOR 7
 
 
-FbxString matrixToString(const FbxAMatrix& mx)
+static FbxString matrixToString(const FbxAMatrix& mx)
 {
 	
     FbxString lStr = '\t';
@@ -498,14 +498,6 @@ bool GCubeWriter::FindBindPoseMatrix(FbxNode* startNode, FbxNode *node, FbxMatri
 						outmtx.mData[ii][jj] = lTransformLinkInverse.mData[ii][jj];
 				outmtx = outmtx.Transpose();
 				
-				// TODO: for test
-//				outmtx.mData[0][0] *= -1.0;
-//				outmtx.mData[1][0] *= -1.0;
-//				outmtx.mData[2][0] *= -1.0;
-//				outmtx.mData[0][1] *= -1.0;
-//				outmtx.mData[1][1] *= -1.0;
-//				outmtx.mData[2][1] *= -1.0;
-
 				// debug print
 				FbxString lStrMatrix = matrixToString(lTransformLinkInverse);
 				FBXSDK_printf("ibp:\n%s", lStrMatrix.Buffer());

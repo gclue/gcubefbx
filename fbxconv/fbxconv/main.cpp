@@ -8,42 +8,61 @@
 
 #include <iostream>
 #include <fbxsdk.h>
+#include <stdio.h>
+#include <unistd.h>
 
+//int main(int argc, char** argv)
 int main(int argc, const char * argv[])
 {
+	const char *input_path = NULL;
+	int c;
+	while ((c = getopt(argc, (char**)argv, "hi:")) != -1) {
+		switch (c) {
+			case 'i':
+				input_path = optarg;
+				break;
+			default:
+				printf("引数指定の誤り: 未知の引数が指定されました。\n");
+			case 'h':
+				return 1;
+		}
+	}
 	
-	// insert code here...
-//	std::cout << "Hello, World!\n";
-	
+	// デバッグ用
+	if (!input_path) {
+		input_path = "/Users/tsuchiya/Downloads/dae/lica_jang/jang.FBX";
+	}
+
+	// Convert
 	FbxManager* manager = FbxManager::Create();
 	FbxString lExtension = "dylib";
 	FbxString lPath = FbxGetApplicationDirectory();
 	manager->LoadPluginsDirectory(lPath.Buffer(), lExtension.Buffer());
 	
-	//	FbxManager* manager = FbxManager::Create();
     FbxImporter* importer = FbxImporter::Create(manager, "Importer");
     FbxScene* scene = FbxScene::Create(manager, "Scene");
-	const char *input_path = "/Users/tsuchiya/Downloads/dae/lica_jang/jang.FBX";
-//	const char *input_path = "/Users/tsuchiya/Downloads/dae/jang.DAE";
-	const char *output_path = "/Users/tsuchiya/Downloads/dae/lica_jang/jang.gcb";
-//	const char *input_path = "/Users/tsuchiya/Downloads/dae/test.fbx";
-//	const char *output_path = "/Users/tsuchiya/Downloads/dae/test.gc";
 	
     importer->Initialize(input_path);
     importer->Import(scene);
 	
-//	int pFileFormat = manager->GetIOPluginRegistry()->GetNativeWriterFormat();
-//	FBXSDK_printf("%d", pFileFormat);
-	
 	FbxExporter* lExporter = FbxExporter::Create(manager, "");
-	if(lExporter->Initialize(output_path, -1, manager->GetIOSettings()) == false)
-    {
-        FBXSDK_printf("Call to FbxExporter::Initialize() failed.¥n");
-        FBXSDK_printf("Error returned: %s¥n¥n", lExporter->GetStatus().GetErrorString());
-        return false;
-    }
+	for (int i=0; i<2; i++) {
+		FbxString path;
+		if (i==0) {
+			path = FbxPathUtils::ChangeExtension(input_path, ".gcb");
+		} else {
+			path = FbxPathUtils::ChangeExtension(input_path, ".gav");
+		}
+		printf("%s\n", path.Buffer());
+		if(lExporter->Initialize(path.Buffer(), -1, manager->GetIOSettings()) == false)
+		{
+			FBXSDK_printf("Call to FbxExporter::Initialize() failed.¥n");
+			FBXSDK_printf("Error returned: %s¥n¥n", lExporter->GetStatus().GetErrorString());
+			return false;
+		}
+		lExporter->Export(scene);
+	}
 	
-	lExporter->Export(scene);
 	
 	
     manager->Destroy();

@@ -11,6 +11,8 @@
 		66339E2D17E1BF49003E2BD0 /* libfbxsdk.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 66339E2B17E1BF49003E2BD0 /* libfbxsdk.dylib */; };
 		66339E3617E2B356003E2BD0 /* BinaryOutputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66339E3417E2B356003E2BD0 /* BinaryOutputStream.cpp */; };
 		66339E3717E2B356003E2BD0 /* BinaryOutputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 66339E3517E2B356003E2BD0 /* BinaryOutputStream.h */; };
+		666DC07F1806A9560024DADE /* GCubeAniWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666DC07D1806A9560024DADE /* GCubeAniWriter.cpp */; };
+		666DC0801806A9560024DADE /* GCubeAniWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 666DC07E1806A9560024DADE /* GCubeAniWriter.h */; };
 		667DE93E17E1AA950073E2CA /* gcubePlugin.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 667DE93C17E1AA950073E2CA /* gcubePlugin.cxx */; };
 		667DE94217E1AC710073E2CA /* GCubeWriter.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 667DE94017E1AC710073E2CA /* GCubeWriter.cxx */; };
 		667DE94317E1AC710073E2CA /* GCubeWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 667DE94117E1AC710073E2CA /* GCubeWriter.h */; };
@@ -21,6 +23,8 @@
 		66339E2B17E1BF49003E2BD0 /* libfbxsdk.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfbxsdk.dylib; path = /Applications/Autodesk/FBX_SDK/2014.1/lib/gcc4/ub/release/libfbxsdk.dylib; sourceTree = "<absolute>"; };
 		66339E3417E2B356003E2BD0 /* BinaryOutputStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BinaryOutputStream.cpp; sourceTree = "<group>"; };
 		66339E3517E2B356003E2BD0 /* BinaryOutputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinaryOutputStream.h; sourceTree = "<group>"; };
+		666DC07D1806A9560024DADE /* GCubeAniWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GCubeAniWriter.cpp; sourceTree = "<group>"; };
+		666DC07E1806A9560024DADE /* GCubeAniWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCubeAniWriter.h; sourceTree = "<group>"; };
 		667DE8EF17D9B99B0073E2CA /* libgcubefbx.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libgcubefbx.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		667DE93C17E1AA950073E2CA /* gcubePlugin.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gcubePlugin.cxx; sourceTree = "<group>"; };
 		667DE94017E1AC710073E2CA /* GCubeWriter.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GCubeWriter.cxx; sourceTree = "<group>"; };
@@ -72,6 +76,8 @@
 				667DE93C17E1AA950073E2CA /* gcubePlugin.cxx */,
 				667DE94017E1AC710073E2CA /* GCubeWriter.cxx */,
 				667DE94117E1AC710073E2CA /* GCubeWriter.h */,
+				666DC07D1806A9560024DADE /* GCubeAniWriter.cpp */,
+				666DC07E1806A9560024DADE /* GCubeAniWriter.h */,
 				66339E3417E2B356003E2BD0 /* BinaryOutputStream.cpp */,
 				66339E3517E2B356003E2BD0 /* BinaryOutputStream.h */,
 			);
@@ -86,6 +92,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				667DE94317E1AC710073E2CA /* GCubeWriter.h in Headers */,
+				666DC0801806A9560024DADE /* GCubeAniWriter.h in Headers */,
 				66339E3717E2B356003E2BD0 /* BinaryOutputStream.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -143,6 +150,7 @@
 			files = (
 				667DE93E17E1AA950073E2CA /* gcubePlugin.cxx in Sources */,
 				667DE94217E1AC710073E2CA /* GCubeWriter.cxx in Sources */,
+				666DC07F1806A9560024DADE /* GCubeAniWriter.cpp in Sources */,
 				66339E3617E2B356003E2BD0 /* BinaryOutputStream.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
