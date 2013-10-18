@@ -30,10 +30,10 @@ int main(int argc, const char * argv[])
 	
 	// デバッグ用
 	if (!input_path) {
-//		input_path = "/Users/tsuchiya/Downloads/dae/lica_jang/jang.FBX";
+		input_path = "/Users/tsuchiya/Downloads/dae/lica_jang/jang.FBX";
 //		input_path = "/Users/tsuchiya/Downloads/car0905/car.FBX";
 //		input_path = "/Users/tsuchiya/Documents/workspace/neko/examples/collada/01walk.dae";
-		input_path = "/Users/tsuchiya/Downloads/dae/j1pf65nqut-lowPolyJet.FBX";
+//		input_path = "/Users/tsuchiya/Downloads/dae/a/turn.dae";
 	}
 
 	// Convert

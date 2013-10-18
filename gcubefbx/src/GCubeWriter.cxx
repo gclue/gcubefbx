@@ -409,9 +409,10 @@ void GCubeWriter::WriteSkeletonData(FbxNode* startNode, int index)
 		if( startNode->GetNodeAttribute() && startNode->GetNodeAttribute()->GetAttributeType() != FbxNodeAttribute::eSkeleton) {
 			return;
 		}
-		// ネコ用
-		if( startNode->GetNameOnly()=="Camera" ) return;
-		if( startNode->GetNameOnly()=="Light" ) return;
+		// ネコ用、ルートにある１つだけのノードは無視
+		if(index==1 && startNode->GetChildCount()==0) {
+			return;
+		}
 		
 		// name
 		bos.writeShort(TYPE_NODE);
