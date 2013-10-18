@@ -370,19 +370,21 @@ void GCubeWriter::parseVertex(FbxMesh* mesh)
 	}
 	
 	// UV
-	FbxStringList uvNames;
-	mesh->GetUVSetNames(uvNames);
-	printf("UVSetName:%s\n", uvNames[0].Buffer());
-	
-	bos.writeShort(TYPE_TEXCOOD);
-	bos.writeInt(vertexCount*2);
-	for (int i=0; i<polycnt; i++) {
-		for (int j=0; j<3; j++) {
-			FbxVector2 uv;
-			bool flg;
-			mesh->GetPolygonVertexUV(i, j, uvNames[0].Buffer(), uv, flg);
-			bos.writeFloat(uv[0]);
-			bos.writeFloat(uv[1]);
+	if (mesh->GetUVLayerCount()) {
+		FbxStringList uvNames;
+		mesh->GetUVSetNames(uvNames);
+		printf("UVSetName:%s\n", uvNames[0].Buffer());
+		
+		bos.writeShort(TYPE_TEXCOOD);
+		bos.writeInt(vertexCount*2);
+		for (int i=0; i<polycnt; i++) {
+			for (int j=0; j<3; j++) {
+				FbxVector2 uv;
+				bool flg;
+				mesh->GetPolygonVertexUV(i, j, uvNames[0].Buffer(), uv, flg);
+				bos.writeFloat(uv[0]);
+				bos.writeFloat(uv[1]);
+			}
 		}
 	}
 }
